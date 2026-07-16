@@ -1,0 +1,11 @@
+node_modules/
+.next/
+.data/
+.e2e-data/
+.env.local
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+public/templates/*.xlsx
+fixtures/*.xlsx

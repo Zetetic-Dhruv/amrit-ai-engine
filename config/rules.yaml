@@ -1,0 +1,41 @@
+- id: water_access
+  all:
+    Q1.1: No
+  problem_statement: The village lacks reliable access to safe drinking water.
+  urgency: 5
+  importance: 5
+
+- id: irrigation_reliability
+  all:
+    Q2.1: No
+  problem_statement: Farmers lack reliable irrigation throughout the growing season.
+  urgency: 4
+  importance: 5
+
+- id: healthcare_access
+  all:
+    Q3.1: No
+  problem_statement: Residents cannot access timely primary healthcare close to the village.
+  urgency: 5
+  importance: 5
+
+- id: waste_collection
+  all:
+    Q4.1: No
+  problem_statement: The village does not have a dependable system for collecting and managing solid waste.
+  urgency: 3
+  importance: 4
+
+- id: livelihood_access
+  all:
+    Q5.1: No
+  problem_statement: Residents have limited access to local livelihood and enterprise opportunities.
+  urgency: 4
+  importance: 4
+
+- id: digital_connectivity
+  all:
+    Q6.1: No
+  problem_statement: Unreliable digital connectivity limits access to services, learning, and markets.
+  urgency: 3
+  importance: 4
