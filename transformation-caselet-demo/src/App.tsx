@@ -79,7 +79,8 @@ export default function App() {
   useLayoutEffect(() => {
     const fit = () => {
       const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080)
-      if (stageRef.current) stageRef.current.style.transform = `scale(${scale})`
+      if (stageRef.current)
+        stageRef.current.style.transform = `translate(-50%, -50%) scale(${scale})`
     }
     fit()
     window.addEventListener('resize', fit)
