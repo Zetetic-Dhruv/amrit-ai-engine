@@ -479,27 +479,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
-}
-.en-logo__mark {
-  width: 150px;
-  height: 92px;
-  overflow: visible;
-}
-.en-logo__stroke {
-  fill: none;
-  stroke: var(--text);
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.en-logo__dot {
-  fill: var(--amber);
 }
 .en-logo__word {
   font-family: Georgia, 'Times New Roman', 'Times', serif;
   font-weight: 700;
-  font-size: 66px;
+  font-size: 72px;
   letter-spacing: 0.005em;
   color: var(--text);
 }

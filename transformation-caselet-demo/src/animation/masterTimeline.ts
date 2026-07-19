@@ -134,6 +134,7 @@ function setInitialStates(root: HTMLElement, q: Q) {
   gsap.set(q('.lk-asym__col--right'), { autoAlpha: 0, y: 26 })
   gsap.set(q('.lk-asym__divider'), { autoAlpha: 0, scaleY: 0 })
   gsap.set(q('.lk-tripwire__tag'), { autoAlpha: 0, y: 16 })
+  gsap.set(q('.tripwire__label'), { autoAlpha: 0 })
   gsap.set(q('.tripwire__line'), { scaleX: 0 })
   gsap.set(q('.tripwire__dot'), { autoAlpha: 0, scale: 0 })
   gsap.set(q('.tripwire__flag'), { autoAlpha: 0, y: 12 })
@@ -145,14 +146,8 @@ function setInitialStates(root: HTMLElement, q: Q) {
   gsap.set(q('.en-headline'), { autoAlpha: 0, y: 30 })
   gsap.set(q('.en-decision'), { autoAlpha: 0, y: 18 })
   gsap.set(q('.en-closing-wrap'), { autoAlpha: 0, y: 26 })
-  // End — brand mark: stroke primed as an undrawn line, word/dot hidden.
-  gsap.set(q('.en-logo__word'), { autoAlpha: 0, y: 16 })
-  gsap.set(q('.en-logo__dot'), { autoAlpha: 0, scale: 0 })
-  const stroke = q('.en-logo__stroke')[0] as unknown as SVGPathElement | undefined
-  if (stroke && stroke.getTotalLength) {
-    const len = stroke.getTotalLength()
-    gsap.set(stroke, { strokeDasharray: len, strokeDashoffset: len })
-  }
+  // End — brand wordmark hidden until the close.
+  gsap.set(q('.en-logo__word'), { autoAlpha: 0, y: 20 })
 }
 
 /* Reveal / hide a whole scene container. */
@@ -328,10 +323,12 @@ function buildLock(tl: gsap.core.Timeline, q: Q, camera: HTMLElement, s: number)
   // Who pays?
   tl.to(q('.lk-pay .lk-q'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.slide }, s + 2.0)
   tl.to(q('.lk-node'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.snap, stagger: 0.18 }, s + 2.8)
-  tl.to(q('.lk-pay'), { autoAlpha: 0, y: -20, duration: DUR.base, ease: EASE.out }, s + 4.8)
+  // Clear it a touch faster so it is fully gone before the asymmetry
+  // (which shares the same vertical band) arrives — no overlap.
+  tl.to(q('.lk-pay'), { autoAlpha: 0, y: -20, duration: DUR.quick, ease: EASE.out }, s + 4.6)
 
   // Reversible for us (calm) vs recoverable for them (amber).
-  tl.to(q('.lk-asym__col--left'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.slide }, s + 5.2)
+  tl.to(q('.lk-asym__col--left'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.slide }, s + 5.3)
   tl.to(q('.lk-asym__divider'), { autoAlpha: 1, scaleY: 1, duration: DUR.base, ease: EASE.settle }, s + 6.4)
   tl.to(q('.lk-asym__col--right'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.slide }, s + 6.8)
 
@@ -341,8 +338,9 @@ function buildLock(tl: gsap.core.Timeline, q: Q, camera: HTMLElement, s: number)
   tl.to(q('.lk-dimmable'), { autoAlpha: 1, duration: DUR.base, ease: EASE.move }, s + 9.8)
   tl.to(camera, { scale: 1, duration: 1.0, ease: EASE.settle }, s + 9.8)
 
-  // Six-month tripwire.
+  // Six-month tripwire — its axis labels appear only now, with the beat.
   tl.to(q('.lk-tripwire__tag'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.slide }, s + 10.4)
+  tl.to(q('.tripwire__label'), { autoAlpha: 1, duration: DUR.base, ease: EASE.slide }, s + 10.5)
   tl.to(q('.tripwire__line'), { scaleX: 1, duration: DUR.slide, ease: EASE.settle }, s + 10.6)
   tl.to(q('.tripwire__dot'), { autoAlpha: 1, scale: 1, duration: DUR.base, ease: EASE.snap }, s + 11.6)
   tl.to(q('.tripwire__flag'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.slide }, s + 11.9)
@@ -379,11 +377,8 @@ function buildEnd(tl: gsap.core.Timeline, q: Q, s: number) {
   // Closing message rises in beneath the headline.
   tl.to(q('.en-closing-wrap'), { autoAlpha: 1, y: 0, duration: DUR.slide, ease: EASE.settle }, s + 3.5)
 
-  // Clear the closing lines, then resolve to the brand mark.
+  // Clear the closing lines, then resolve to the brand wordmark.
   tl.to([...q('.en-headline'), ...q('.en-closing-wrap')], { autoAlpha: 0, y: -30, duration: DUR.base, ease: EASE.out }, s + 6.4)
-  // The calligraphic stroke draws itself in.
-  tl.to(q('.en-logo__stroke'), { strokeDashoffset: 0, duration: 1.5, ease: 'power2.inOut' }, s + 6.9)
-  tl.to(q('.en-logo__dot'), { autoAlpha: 1, scale: 1, duration: DUR.base, ease: EASE.snap }, s + 8.0)
-  tl.to(q('.en-logo__word'), { autoAlpha: 1, y: 0, duration: DUR.slide, ease: EASE.settle }, s + 8.2)
-  // Final frame holds on the brand mark until the timeline ends.
+  tl.to(q('.en-logo__word'), { autoAlpha: 1, y: 0, duration: DUR.slide, ease: EASE.settle }, s + 7.1)
+  // Final frame holds on the wordmark until the timeline ends.
 }
