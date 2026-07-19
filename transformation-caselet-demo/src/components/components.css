@@ -1,0 +1,241 @@
+/* ============================================================
+   REUSABLE COMPONENT STYLES
+   ============================================================ */
+
+/* ---- Scene heading --------------------------------------- */
+.scene-heading {
+  text-align: left;
+}
+.scene-heading__label {
+  color: var(--text-muted);
+}
+.scene-heading__sub {
+  margin-top: 10px;
+  font-size: var(--fs-lead);
+  font-weight: var(--fw-light);
+  color: var(--text);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* ---- Category column (GROUND zones) ---------------------- */
+.category-column {
+  width: 470px;
+  height: 540px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--surface), var(--bg));
+  padding: 28px 28px 24px;
+  display: flex;
+  flex-direction: column;
+}
+.category-column__head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.category-column__label {
+  color: var(--text-secondary);
+}
+.category-column__rule {
+  height: 1px;
+  width: 100%;
+  background: var(--border-strong);
+}
+.category-column__body {
+  flex: 1;
+}
+
+/* ---- Option card (BOARD) --------------------------------- */
+.option-card {
+  position: absolute;
+  width: 760px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 30px 34px;
+  box-shadow: var(--shadow-card);
+  transform-origin: center center;
+}
+.option-card--winner {
+  background: var(--card-elevated);
+}
+.option-card__top {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.option-card__index {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  font-weight: var(--fw-semibold);
+  font-variant-numeric: tabular-nums;
+}
+.option-card__title {
+  font-size: 34px;
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text);
+  line-height: var(--lh-snug);
+}
+.option-card__evidence {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 22px;
+}
+.option-card__evidence-label {
+  color: var(--text-muted);
+}
+.option-card__ticks {
+  display: inline-flex;
+  gap: 6px;
+}
+.tick {
+  width: 26px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border-strong);
+}
+.tick--on {
+  background: var(--text-secondary);
+}
+.option-card__against {
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+  font-weight: var(--fw-regular);
+}
+.option-card__reason {
+  margin-top: 18px;
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: var(--text-secondary);
+  overflow: hidden;
+}
+.option-card__meta {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.option-card__status {
+  font-size: var(--fs-label);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--amber);
+}
+.option-card__pills {
+  display: inline-flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.pill {
+  font-size: 18px;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 7px 16px;
+  white-space: nowrap;
+}
+
+/* ---- Risk flag ------------------------------------------- */
+.risk-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--amber-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.risk-flag__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--amber-wash);
+  color: var(--amber);
+}
+.risk-flag__title {
+  font-size: var(--fs-body);
+  color: var(--text);
+  font-weight: var(--fw-regular);
+}
+.risk-flag__sub {
+  font-size: 20px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ---- Tripwire timeline ----------------------------------- */
+.tripwire {
+  width: 1040px;
+}
+.tripwire__track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 96px;
+}
+.tripwire__label {
+  font-size: 18px;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.tripwire__label--start {
+  margin-right: 22px;
+}
+.tripwire__label--end {
+  margin-left: 22px;
+}
+.tripwire__line {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  background: var(--border-strong);
+  transform-origin: left center;
+}
+.tripwire__dot {
+  position: absolute;
+  left: 62%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 0 6px rgba(255, 179, 0, 0.14);
+}
+.tripwire__flag {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  text-align: center;
+  white-space: nowrap;
+}
+.tripwire__marker {
+  display: block;
+  font-size: var(--fs-body);
+  color: var(--amber);
+  font-weight: var(--fw-medium);
+}
+.tripwire__sub {
+  display: block;
+  margin-top: 4px;
+  font-size: 18px;
+  color: var(--text-muted);
+}
