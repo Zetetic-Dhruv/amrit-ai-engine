@@ -44,7 +44,6 @@ export function LockScene() {
           <p className="lk-asym__value lk-asym__value--calm">
             {lock.undoAnswer}
           </p>
-          <p className="lk-asym__label">{lock.asymmetry.left.label}</p>
           <p className="lk-asym__sub">{lock.undoSub}</p>
         </div>
 
@@ -55,7 +54,6 @@ export function LockScene() {
           <p className="lk-asym__value lk-asym__value--amber">
             {lock.recoverAnswer}
           </p>
-          <p className="lk-asym__label">{lock.asymmetry.right.label}</p>
           <p className="lk-asym__sub lk-asym__sub--focal">{lock.recoverSub}</p>
         </div>
       </div>

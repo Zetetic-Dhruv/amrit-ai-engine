@@ -77,13 +77,13 @@ export const SCENES: SceneMeta[] = [
     id: 'end',
     name: 'End card',
     start: 77,
-    end: 83,
+    end: 88,
     narration:
       'Five decisions stayed human. Everything else happened while you watched.',
     visualAction:
-      'Interface clears through movement; "Five decisions stayed human"; the five calls stack into a compact mark; closing line; final frame holds.',
+      'Interface clears through movement; "Five decisions stayed human"; the five calls stack into a compact mark; closing line; then the Zetesis Labs brand mark draws itself in and the final frame holds.',
     onScreen:
-      'Five decisions stayed human. Everything else happened while you watched.',
+      'Five decisions stayed human. Everything else happened while you watched. · Zetesis Labs',
   },
 ]
 

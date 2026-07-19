@@ -18,22 +18,10 @@ export interface Fragment {
 
 /* ---- SCENE 0 · OPENING CONTEXT ---------------------------- */
 export const opening = {
-  eyebrow: 'Transformation caselet',
   lines: [
     'A 130,000-person technology company is falling behind.',
     'A new CEO has taken over.',
     'The client believes the problem is strategy.',
-  ],
-  // Quiet fragments that drift around the frame.
-  ambientWords: [
-    'strategy',
-    'ranking',
-    'competition',
-    'risk',
-    'failure',
-    'culture',
-    'silos',
-    'incentives',
   ],
   rule: 'No hindsight.', // amber
   ruleSub: 'Score the decision as if you are in the room today.',

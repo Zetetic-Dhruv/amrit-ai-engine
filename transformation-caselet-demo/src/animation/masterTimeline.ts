@@ -86,9 +86,7 @@ function setInitialStates(root: HTMLElement, q: Q) {
   gsap.set(q('.scene'), { autoAlpha: 0 })
 
   // Opening
-  gsap.set(q('.op-eyebrow'), { autoAlpha: 0, y: 24 })
   gsap.set(q('.op-line'), { autoAlpha: 0, y: 30 })
-  gsap.set(q('.op-word'), { autoAlpha: 0, scale: 0.92 })
   gsap.set(q('.op-rule__main'), { autoAlpha: 0, y: 30 })
   gsap.set(q('.op-rule__sub'), { autoAlpha: 0, y: 20 })
 
@@ -147,6 +145,14 @@ function setInitialStates(root: HTMLElement, q: Q) {
   gsap.set(q('.en-headline'), { autoAlpha: 0, y: 30 })
   gsap.set(q('.en-decision'), { autoAlpha: 0, y: 18 })
   gsap.set(q('.en-closing-wrap'), { autoAlpha: 0, y: 26 })
+  // End — brand mark: stroke primed as an undrawn line, word/dot hidden.
+  gsap.set(q('.en-logo__word'), { autoAlpha: 0, y: 16 })
+  gsap.set(q('.en-logo__dot'), { autoAlpha: 0, scale: 0 })
+  const stroke = q('.en-logo__stroke')[0] as unknown as SVGPathElement | undefined
+  if (stroke && stroke.getTotalLength) {
+    const len = stroke.getTotalLength()
+    gsap.set(stroke, { strokeDasharray: len, strokeDashoffset: len })
+  }
 }
 
 /* Reveal / hide a whole scene container. */
@@ -173,28 +179,16 @@ function hideScene(
 function buildOpening(tl: gsap.core.Timeline, q: Q, s: number) {
   showScene(tl, q, 'opening', s)
 
-  tl.to(q('.op-eyebrow'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.slide }, s + 0.3)
-
-  // Quiet ambient words drift in, then hold low.
-  tl.to(
-    q('.op-word'),
-    { autoAlpha: 0.7, scale: 1, duration: 1.1, ease: EASE.settle, stagger: 0.06 },
-    s + 0.7
-  )
-  tl.to(q('.op-word'), { x: '+=8', y: '-=6', duration: 3.6, ease: 'sine.inOut' }, s + 1)
-
   // Context lines snap in one at a time.
-  tl.to(q('[data-op-line="0"]'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.snap }, s + 1.2)
-  tl.to(q('[data-op-line="1"]'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.snap }, s + 2.2)
-  tl.to(q('[data-op-line="2"]'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.snap }, s + 3.2)
+  tl.to(q('[data-op-line="0"]'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.snap }, s + 0.6)
+  tl.to(q('[data-op-line="1"]'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.snap }, s + 1.7)
+  tl.to(q('[data-op-line="2"]'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.snap }, s + 2.8)
 
   // Clear the context, snap the rule forward.
-  tl.to(q('.op-eyebrow'), { autoAlpha: 0, duration: DUR.quick, ease: EASE.out }, s + 4.9)
-  tl.to(q('.op-line'), { autoAlpha: 0, y: -30, duration: DUR.base, ease: EASE.out, stagger: 0.06 }, s + 4.9)
-  tl.to(q('.op-word'), { autoAlpha: 0, duration: DUR.base, ease: EASE.out }, s + 5.0)
+  tl.to(q('.op-line'), { autoAlpha: 0, y: -30, duration: DUR.base, ease: EASE.out, stagger: 0.06 }, s + 4.7)
 
-  tl.to(q('.op-rule__main'), { autoAlpha: 1, y: 0, duration: DUR.slide, ease: EASE.settle }, s + 5.5)
-  tl.to(q('.op-rule__sub'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.slide }, s + 6.1)
+  tl.to(q('.op-rule__main'), { autoAlpha: 1, y: 0, duration: DUR.slide, ease: EASE.settle }, s + 5.3)
+  tl.to(q('.op-rule__sub'), { autoAlpha: 1, y: 0, duration: DUR.base, ease: EASE.slide }, s + 5.9)
 
   // Compress toward GROUND.
   tl.to(q('.op-rule'), { autoAlpha: 0, scale: 0.96, duration: DUR.base, ease: EASE.out }, s + 8.4)
@@ -231,23 +225,24 @@ function buildGround(tl: gsap.core.Timeline, q: Q, s: number) {
     )
   })
 
-  // Focal moment — "Fix strategy first" drops into OPINIONS, amber underline.
+  // Focal moment — "Fix strategy first" drops into OPINIONS just after the
+  // others settle (a beat, not a long pause), then gains its amber underline.
   const focal = G.fragments.find((f) => f.focal)!
   const fx = COL_LEFT[focal.zone] + FRAG_PAD
   tl.to(
     q(`.gr-frag[data-frag="${focal.id}"]`),
     { x: fx, y: SLOT_TOP, duration: DUR.settle, ease: EASE.settle },
-    s + 7.4
+    s + 6.3
   )
   tl.to(
     q(`.gr-frag[data-frag="${focal.id}"] [data-frag-underline]`),
     { scaleX: 1, duration: DUR.base, ease: EASE.snap },
-    s + 8.3
+    s + 7.1
   )
   tl.to(
     q(`.gr-frag[data-frag="${focal.id}"]`),
     { borderColor: 'var(--amber)', duration: DUR.quick },
-    s + 8.3
+    s + 7.1
   )
 
   // Phase D — rewrite the problem.
@@ -383,5 +378,12 @@ function buildEnd(tl: gsap.core.Timeline, q: Q, s: number) {
 
   // Closing message rises in beneath the headline.
   tl.to(q('.en-closing-wrap'), { autoAlpha: 1, y: 0, duration: DUR.slide, ease: EASE.settle }, s + 3.5)
-  // Final frame holds on the last state until the timeline ends.
+
+  // Clear the closing lines, then resolve to the brand mark.
+  tl.to([...q('.en-headline'), ...q('.en-closing-wrap')], { autoAlpha: 0, y: -30, duration: DUR.base, ease: EASE.out }, s + 6.4)
+  // The calligraphic stroke draws itself in.
+  tl.to(q('.en-logo__stroke'), { strokeDashoffset: 0, duration: 1.5, ease: 'power2.inOut' }, s + 6.9)
+  tl.to(q('.en-logo__dot'), { autoAlpha: 1, scale: 1, duration: DUR.base, ease: EASE.snap }, s + 8.0)
+  tl.to(q('.en-logo__word'), { autoAlpha: 1, y: 0, duration: DUR.slide, ease: EASE.settle }, s + 8.2)
+  // Final frame holds on the brand mark until the timeline ends.
 }
